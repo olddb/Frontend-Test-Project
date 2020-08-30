@@ -10,24 +10,32 @@ const { Search } = Input;
 class AllArticles extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {search: ''};
+    this.state = {
+      hiddenArticles: [],
+      search: ''
+    };
+    this.hideArticle = this.hideArticle.bind(this);
   }
 
-  applySearch = articles => articles.filter(a => {
-    return (a.content && a.content.toLowerCase().includes(this.state.search)) ||
-    (a.description && a.description.toLowerCase().includes(this.state.search)) ||
-    (a.title && a.title.toLowerCase().includes(this.state.search))
-  });
+  applySearchAndHide = articles => articles.filter(a =>
+    (!this.state.hiddenArticles.includes(a.url)) && (
+      (a.content && a.content.toLowerCase().includes(this.state.search)) ||
+      (a.description && a.description.toLowerCase().includes(this.state.search)) ||
+      (a.title && a.title.toLowerCase().includes(this.state.search))
+    )
+  );
+
+  hideArticle = url => this.setState({hiddenArticles: [...this.state.hiddenArticles, url] })
 
   render() {
-    const { applySearch } = this;
+    const { applySearchAndHide, hideArticle } = this;
     const { data: { articles } } = this.props;
-    console.log('AllArticles -> render -> articles', articles);
-    const filteredArticles = applySearch(articles);
+    const filteredArticles = applySearchAndHide(articles);
+    console.log(this.state.hiddenArticles)
     return (
       <div className="all-articles">
         <Search placeholder="Rechercher par mot clé ou par phrase" onSearch={val => this.setState({search: val.toLowerCase()})} enterButton />
-        {filteredArticles.map(a => <Article data={a} key={a.url} /> )}
+        {filteredArticles.map(a => <Article hideArticle={e => hideArticle(e)} data={a} key={a.url} /> )}
       </div>
     );
   }
