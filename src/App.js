@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import { API_KEY } from './constants';
 import AllArticles from './Components/AllArticles';
 import './App.css';
@@ -8,7 +7,6 @@ import './App.css';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {news: []};
   }
 

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 class Article extends React.Component {
@@ -6,10 +6,10 @@ class Article extends React.Component {
     const { data } = this.props;
     console.log('Article -> render -> data', data);
      return (
-      <div className='article'>
+      data.title && data.urlToImage && data.content && <div className='article'>
         <h3>{data.title}</h3>
-        <img src={data.urlToImage} alt={data.title}/>
-      </div>
+        <img src={data.urlToImage} alt={data.content}/>
+       </div>
     );
   }
 }
