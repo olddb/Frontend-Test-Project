@@ -26,13 +26,14 @@ export default class App extends React.Component {
   }
 
   searchArticles(term) {
-    console.log('App -> searchArticles -> term', term);
-    var url = 'https://newsapi.org/v2/everything?q=' + term +
-    '&apiKey=' + API_KEY ;
-    var req = new Request(url);
-    fetch(req)
-      .then(response => response.json())
-      .then(resJson => this.setState({news: resJson}))
+    if (term) {
+      var url = 'https://newsapi.org/v2/everything?q=' + term +
+      '&apiKey=' + API_KEY ;
+      var req = new Request(url);
+      fetch(req)
+        .then(response => response.json())
+        .then(resJson => this.setState({news: resJson}))
+    }
   }
 
   render() {
