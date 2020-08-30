@@ -29,13 +29,15 @@ class AllArticles extends React.Component {
 
   render() {
     const { applySearchAndHide, hideArticle } = this;
-    const { data: { articles } } = this.props;
+    const { data: { articles }, searchArticles } = this.props;
     const filteredArticles = applySearchAndHide(articles);
     console.log(this.state.hiddenArticles)
     return (
-      <div className="all-articles">
-        <Search placeholder="Rechercher par mot clé ou par phrase" onSearch={val => this.setState({search: val.toLowerCase()})} enterButton />
-        {filteredArticles.map(a => <Article hideArticle={e => hideArticle(e)} data={a} key={a.url} /> )}
+      <div>
+        <Search placeholder="Rechercher par mot clé ou par phrase" onSearch={val => searchArticles(val)} enterButton />
+        <div className="all-articles">
+          {filteredArticles.map(a => <Article hideArticle={e => hideArticle(e)} data={a} key={a.url} /> )}
+        </div>
       </div>
     );
   }
@@ -43,6 +45,7 @@ class AllArticles extends React.Component {
 
 AllArticles.propTypes = {
   data: PropTypes.object,
+  searchArticles: PropTypes.func.isRequired,
 }; 
 
 export default AllArticles;
