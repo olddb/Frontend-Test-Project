@@ -16,7 +16,7 @@ export default class App extends React.Component {
   }
 
   initNews() {
-    var url = 'http://newsapi.org/v2/top-headlines?' +
+    var url = 'https://newsapi.org/v2/top-headlines?' +
     'country=fr&' +
     'apiKey=' + API_KEY ;
     var req = new Request(url);
