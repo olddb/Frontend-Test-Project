@@ -38,7 +38,6 @@ export default class App extends React.Component {
 
   render() {
     const { searchArticles } = this;
-    console.log(this.state)
     return (
       <div className="App">
         {this.state.news.articles && <AllArticles
